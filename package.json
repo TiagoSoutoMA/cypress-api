@@ -11,7 +11,7 @@
     "url": "git+https://github.com/TiagoSoutoMA/cypress-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tiago Souto",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -19,7 +19,14 @@
   },
   "homepage": "https://github.com/TiagoSoutoMA/cypress-api#readme",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.2.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
+    "@faker-js/faker": "^9.9.0",
     "cypress": "^14.5.3",
-    "cypress-cucumber-preprocessor": "^4.3.1"
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "esbuild": "^0.25.8"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/e2e/step_definitions/**/*.{js,ts}"
   }
 }
