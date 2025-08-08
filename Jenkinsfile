@@ -6,10 +6,6 @@ pipeline {
         }
     }
     
-    tools {
-        nodejs "node22"
-    }
-
     environment { 
         ALLURE_HOME = "${tool 'allure'}"
         PATH = "$ALLURE_HOME/bin:$PATH"
