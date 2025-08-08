@@ -21,7 +21,17 @@ pipeline {
         stage('Testing') {
             steps {
                 echo "Running tests"
-                sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
+                sh "npx cypress run --browser chrome"
+            }
+        }
+
+       stage('Deploy Allure') {
+            steps {
+                allure([
+                    includeProperties: false, 
+                    jdk: '', 
+                    results: [[path: 'cypress/allure-results']]
+                ])
             }
         }
     }
