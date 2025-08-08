@@ -9,6 +9,33 @@ class cadastroUtils {
             administrador: "true"
         };
     }
+
+    payloadUsuarioVazio() {
+        return {
+            nome: "",
+            email: "",
+            password: "",
+            administrador: ""
+        };
+    }
+
+    payloadUsuarioInvalido() {
+        return {
+            nome: faker.person.fullName(),
+            email: "emailinvalido",
+            password: "teste123",
+            administrador: "true"
+        };
+    }
+
+    payloadUsuarioEmailJaCadastrado() {
+        return {
+            nome: faker.person.fullName(),
+            email: Cypress.env('emailCadastrado'),
+            password: "teste123",
+            administrador: "true"
+        }
+    }
 }
 
 module.exports = new cadastroUtils();
