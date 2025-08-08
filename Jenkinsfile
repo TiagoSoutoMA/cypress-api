@@ -21,7 +21,7 @@ pipeline {
         stage('Testing') {
             steps {
                 echo "Running tests"
-                sh "npx cypress run --browser chrome"
+                sh "npx cypress run --browser chrome --headless"
             }
         }
 
