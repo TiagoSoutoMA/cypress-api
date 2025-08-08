@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'cypress/included:14.5.0'
+            args '-u root' // para ter permissão de instalar pacotes, se necessário
+        }
+    }
     
     tools {
         nodejs "node22"
