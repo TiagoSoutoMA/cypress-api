@@ -1,43 +1,34 @@
 pipeline {
     agent any
-
-    parameters {
-        string(name: 'SPEC', defaultValue: "cypress/integration/**/**", description: "Enter the scripts path that tou want to execute")
-        choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: "Choice the browser where you want to execute your scripts")
+    
+    tools {
+        nodejs "node22"
     }
 
-    options {
-        ansiColor('xterm')
+    environment { 
+        ALLURE_HOME = "${tool 'allure'}"
+        PATH = "$ALLURE_HOME/bin:$PATH"
     }
-
+    
     stages {
         stage('Building') {
             steps {
                 echo "Building the application"
+                sh "npm install"
             }
         }
+        
         stage('Testing') {
             steps {
-                bat "npm i"
-                bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
-            }
-        }
-        stage('Deploying') {
-            steps {
-                echo "Deploy the application"
+                echo "Running tests"
+                sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
         }
     }
 
     post {
         always {
-            publishHTML([allowMissing: true, 
-                         alwaysLinkToLastBuild: true, 
-                         keepAll: true, 
-                         reportDir: 'cypress/reports/html', 
-                         reportFiles: 'index.html', 
-                         reportName: 'Cypress Test Report'
-                        ])
+            archiveArtifacts artifacts: 'cypress
         }
     }
 }
