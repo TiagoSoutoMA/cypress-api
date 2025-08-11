@@ -1,23 +1,24 @@
 pipeline {
-    
-    agent any
-
-    tools {
-        nodejs "Node"
+    agent {
+        docker {
+            image 'cypress/browsers:node-14.16.0-chrome-89.0' // Imagem Docker com Cypress e Node.js
+            args '-u root' // Define o usuário para execução
+        }
     }
-    
     stages {
-        stage('Building') {
+        stage('Checkout') {
             steps {
-                echo "Building the application"
-                sh "npm install"
+                git 'https://github.com/TiagoSoutoMA/cypress-api' // Substitua pela URL do seu repositório
             }
         }
-        
-        stage('Testing') {
+        stage('Instalar dependências') {
             steps {
-                echo "Running tests"
-                sh "npx cypress run"
+                sh 'npm install' // Ou yarn install, dependendo do gerenciador de pacotes
+            }
+        }
+        stage('Executar testes') {
+            steps {
+                sh 'npx cypress run' // Executa os testes Cypress
             }
         }
     }
