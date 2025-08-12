@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    stages {
+    stages('Iniciar o ServeRest') {
         stage {
             steps {
                 bat 'docker run -d --name serverest -p 3000:3000 paulogoncalvesbh/serverest:latest'
