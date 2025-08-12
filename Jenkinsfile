@@ -6,19 +6,14 @@ pipeline {
         }
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/TiagoSoutoMA/cypress-api' // Substitua pela URL do seu repositório
-            }
-        }
         stage('Instalar dependências') {
             steps {
-                sh 'npm install' // Ou yarn install, dependendo do gerenciador de pacotes
+                bat 'npm install' // Ou yarn install, dependendo do gerenciador de pacotes
             }
         }
         stage('Executar testes') {
             steps {
-                sh 'npx cypress run' // Executa os testes Cypress
+                bat 'npx cypress run' // Executa os testes Cypress
             }
         }
     }
