@@ -28,10 +28,10 @@ class cadastroUtils {
         };
     }
 
-    payloadUsuarioEmailJaCadastrado() {
+    payloadUsuarioEmailJaCadastrado(email) {
         return {
             nome: faker.person.fullName(),
-            email: Cypress.env('emailCadastrado'),
+            email: email,
             password: "teste123",
             administrador: "true"
         }

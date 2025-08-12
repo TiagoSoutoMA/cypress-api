@@ -3,9 +3,11 @@ const cadastroUtils = require("../../utils/cadastroUtils");
 const cadastroPage = require("../../pages/CadastroPage");
 
 let payload;
+let email;
 
 When("o usuário informa os dados obrigatórios corretos", () => {
   payload = cadastroUtils.payloadUsuarioValido();
+  email = payload.email; 
 });
 
 When("o usuário não informa os dados obrigatórios", () => {
@@ -17,7 +19,7 @@ When("o usuário informa os dados obrigatórios incorretos", () => {
 });
 
 When("o usuário informa um email já cadastrado", () => {
-  payload = cadastroUtils.payloadUsuarioEmailJaCadastrado();
+  payload = cadastroUtils.payloadUsuarioEmailJaCadastrado(email);
 });
 
 Then("o sistema deve tentar cadastrar o usuário", () => {
