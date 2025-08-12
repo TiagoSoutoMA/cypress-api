@@ -21,6 +21,13 @@ pipeline {
                 } // Executa os testes Cypress
             }
         }
+
+        stage('Gerar relatório Allure') {
+            steps {
+                // Comando para gerar relatório Allure (ajuste conforme seu projeto)
+                bat 'allure generate ./allure-results --clean -o ./allure-report'
+            }
+        }
     }
     
     post {
