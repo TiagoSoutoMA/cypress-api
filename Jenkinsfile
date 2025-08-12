@@ -22,10 +22,16 @@ pipeline {
             }
         }
 
-        stage('Gerar relatório Allure') {
+        // stage('Gerar relatório Allure') {
+        //     steps {
+        //         // Comando para gerar relatório Allure (ajuste conforme seu projeto)
+        //         bat 'allure generate ./allure-results --clean -o ./allure-report'
+        //     }
+        // }
+
+        stage('Publicar relatório Allure') {
             steps {
-                // Comando para gerar relatório Allure (ajuste conforme seu projeto)
-                bat 'allure generate ./allure-results --clean -o ./allure-report'
+                allure includeProperties: false, results: [[path: 'allure-results']]
             }
         }
     }
