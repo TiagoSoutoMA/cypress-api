@@ -33,6 +33,32 @@ pipeline {
                 """
             }
         }
+
+        stage('Capturar versões para Environment') {
+            steps {
+                script {
+                    // Captura a versão do node instalado no agente Jenkins
+                    def nodeVersion = bat(script: 'node -v', returnStdout: true).trim()
+
+                    // Captura a versão do cypress instalada no projeto
+                    def cypressVersion = bat(script: 'npx cypress -v', returnStdout: true).trim()
+
+                    // Captura data e hora da execução (usando shell do Windows)
+                    def date = bat(script: 'echo %DATE% %TIME%', returnStdout: true).trim()
+
+                    // Salva no arquivo environment.properties dentro da pasta allure-results
+                    bat """
+                    echo url=http://localhost:3000 > allure-results/environment.properties
+                    echo ambiente=docker local >> allure-results/environment.properties
+                    echo versaoServer=paulogoncalvesbh/serverest:latest >> allure-results/environment.properties
+                    echo nodeVersion=${nodeVersion} >> allure-results/environment.properties
+                    echo cypressVersion=${cypressVersion} >> allure-results/environment.properties
+                    echo dataExecucao=${date} >> allure-results/environment.properties
+                    echo SO=Windows >> allure-results/environment.properties
+                    """
+                }
+            }
+        }
         
         stage('Executar testes') {
             steps {
