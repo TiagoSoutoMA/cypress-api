@@ -1,10 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'cypress/browsers:node-14.16.0-chrome-89.0' // Imagem Docker com Cypress e Node.js
-            args '-u root' // Define o usuário para execução
-        }
-    }
+    agent any
+    
     stages {
         stage('Instalar dependências') {
             steps {
