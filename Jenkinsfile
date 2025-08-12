@@ -16,7 +16,9 @@ pipeline {
         
         stage('Executar testes') {
             steps {
-                bat 'npx cypress run || true' // Executa os testes Cypress
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    bat 'npx cypress run'
+                } // Executa os testes Cypress
             }
         }
     }
